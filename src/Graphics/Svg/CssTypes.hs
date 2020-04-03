@@ -18,12 +18,16 @@ module Graphics.Svg.CssTypes
     , toUserUnit
     , mapNumber
     , tserialize
+
+    , cssDeclarationProperty
+    , cssDeclarationValues
     ) where
 
 #if !MIN_VERSION_base(4,8,0)
 import Data.Monoid( mconcat )
 #endif
 
+import Control.Lens( Lens' )
 import Data.Monoid( (<>) )
 import Data.List( intersperse )
 import qualified Data.Text as T
@@ -269,3 +273,10 @@ toUserUnit dpi = go where
     Cm n -> go . Inches $ n / 2.54
     Point n -> go . Inches $ n / 72
 
+cssDeclarationProperty :: Lens' CssDeclaration T.Text
+cssDeclarationProperty f x =
+    fmap (\y -> x { _cssDeclarationProperty = y }) (f (_cssDeclarationProperty x))
+
+cssDeclarationValues :: Lens' CssDeclaration [[CssElement]]
+cssDeclarationValues f x =
+    fmap (\y -> x { _cssDeclarationValues = y }) (f (_cssDeclarationValues x))
