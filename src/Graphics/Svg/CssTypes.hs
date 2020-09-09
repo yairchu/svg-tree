@@ -174,7 +174,7 @@ data CssDeclaration = CssDeclaration
       -- | List of values
     , _cssDeclarationValues   :: [[CssElement]]
     }
-    deriving (Eq, Show)
+    deriving (Eq, Ord, Show)
 
 instance TextBuildable CssDeclaration where
   tserialize (CssDeclaration n elems) =
@@ -197,7 +197,7 @@ data Number
   | Cm Double        -- ^ Number in centimeters, relative to DPI.
   | Point Double     -- ^ Number in points, relative to DPI.
   | Inches Double    -- ^ Number in inches, relative to DPI.
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 -- | Helper function to modify inner value of a number
 mapNumber :: (Double -> Double) -> Number -> Number
@@ -239,7 +239,7 @@ data CssElement
     | CssFunction  !T.Text ![CssElement]
     | CssOpComa
     | CssOpSlash
-    deriving (Eq, Show)
+    deriving (Eq, Ord, Show)
 
 instance TextBuildable CssElement where
   tserialize e = case e of
