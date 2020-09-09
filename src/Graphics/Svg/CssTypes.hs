@@ -54,7 +54,7 @@ data CssDescriptor
   | OfPseudoClass T.Text     -- ^ `:IDENT` (ignore function syntax)
   | AnyElem                  -- ^ '*'
   | WithAttrib T.Text T.Text -- ^ ``
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 instance TextBuildable CssDescriptor where
   tserialize d = case d of
@@ -74,7 +74,7 @@ data CssSelector
   | DirectChildren  -- ^ Correspond to the `>` CSS selectro.
   | AllOf [CssDescriptor] -- ^ Grouping construct, all the elements
                           -- of the list must be matched.
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 instance TextBuildable CssSelector where
   tserialize s = case s of
